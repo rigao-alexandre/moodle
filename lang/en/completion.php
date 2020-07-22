@@ -233,3 +233,4 @@ $string['withconditions'] = 'With conditions';
 $string['writingcompletiondata'] = 'Writing completion data';
 $string['xdays'] = '{$a} days';
 $string['yourprogress'] = 'Your progress';
+$string['availabilitycompletion'] = 'Availability completion';

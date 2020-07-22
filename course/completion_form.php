@@ -252,6 +252,18 @@ class course_completion_form extends moodleform {
             $mform->addElement('static', 'noroles', '', get_string('err_noroles', 'completion'));
         }
 
+        // Availability completion
+        $label = get_string('coursecompletioncondition', 'core_completion', get_string('availabilitycompletion', 'core_completion'));
+        $mform->addElement('header', 'availability', $label);
+        // Expand the condition section if it is currently enabled.
+        $current = $completion->get_criteria(COMPLETION_CRITERIA_TYPE_AVAILABILITY);
+        if (!empty($current)) {
+            $mform->setExpanded('availability');
+        }
+        $criteria = new completion_criteria_availability($params);
+        // $criteria->config_form_display($mform, $params);
+        $criteria->config_form_display($mform, (object)['course' => $course]);
+
         // Add common action buttons.
         $this->add_action_buttons();
 

@@ -77,20 +77,27 @@ define('COMPLETION_CRITERIA_TYPE_ROLE',         7);
 define('COMPLETION_CRITERIA_TYPE_COURSE',       8);
 
 /**
+ * Availability rule criteria type
+ * Criteria type constant, primarily for storing criteria type in the database.
+ */
+define('COMPLETION_CRITERIA_TYPE_AVAILABILITY',      9);
+
+/**
  * Criteria type constant to class name mapping.
  *
  * This global variable would be improved if it was implemented as a cache.
  */
 global $COMPLETION_CRITERIA_TYPES;
 $COMPLETION_CRITERIA_TYPES = array(
-    COMPLETION_CRITERIA_TYPE_SELF       => 'self',
-    COMPLETION_CRITERIA_TYPE_DATE       => 'date',
-    COMPLETION_CRITERIA_TYPE_UNENROL    => 'unenrol',
-    COMPLETION_CRITERIA_TYPE_ACTIVITY   => 'activity',
-    COMPLETION_CRITERIA_TYPE_DURATION   => 'duration',
-    COMPLETION_CRITERIA_TYPE_GRADE      => 'grade',
-    COMPLETION_CRITERIA_TYPE_ROLE       => 'role',
-    COMPLETION_CRITERIA_TYPE_COURSE     => 'course',
+    COMPLETION_CRITERIA_TYPE_SELF            => 'self',
+    COMPLETION_CRITERIA_TYPE_DATE            => 'date',
+    COMPLETION_CRITERIA_TYPE_UNENROL         => 'unenrol',
+    COMPLETION_CRITERIA_TYPE_ACTIVITY        => 'activity',
+    COMPLETION_CRITERIA_TYPE_DURATION        => 'duration',
+    COMPLETION_CRITERIA_TYPE_GRADE           => 'grade',
+    COMPLETION_CRITERIA_TYPE_ROLE            => 'role',
+    COMPLETION_CRITERIA_TYPE_COURSE          => 'course',
+    COMPLETION_CRITERIA_TYPE_AVAILABILITY    => 'availability',
 );
 
 
@@ -114,7 +121,7 @@ abstract class completion_criteria extends data_object {
      * enrolperiod, timeend, gradepass, role
      * @var array
      */
-    public $required_fields = array('id', 'course', 'criteriatype', 'module', 'moduleinstance', 'courseinstance', 'enrolperiod', 'timeend', 'gradepass', 'role');
+    public $required_fields = array('id', 'course', 'criteriatype', 'module', 'moduleinstance', 'courseinstance', 'enrolperiod', 'timeend', 'gradepass', 'role', 'availability');
 
     /* @var int Course id  */
     public $course;
@@ -151,6 +158,9 @@ abstract class completion_criteria extends data_object {
 
     /* @var int Role ID that has the ability to mark a user as complete (for role completion) */
     public $role;
+
+    /* @var string Module type this criteria relates to (for activity criteria)  */
+    public $availability;
 
     /**
      * Finds and returns all data_object instances based on params.
